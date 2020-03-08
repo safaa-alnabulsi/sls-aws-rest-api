@@ -29,7 +29,7 @@ provider:
         - "dynamodb:UpdateTable"
         - "dynamodb:Query"
         - "dynamodb:Scan"
-      Resource: { "Fn::Join" : ["", ["arn:aws:dynamodb:::", { "Ref" : "TodosDynamoDBTable" } , "/*"] ] }
+      Resource: { "Fn::Join" : ["", ["arn:aws:dynamodb:",{ "Ref" : "AWS::Region" },':', { "Ref" : "AWS::AccountId" }, ':table/', { "Ref" : "TodosDynamoDBTable" } ] ] }
 
   environment:
     dynamodbTable: ${self:service}-${self:provider.stage}
