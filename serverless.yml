@@ -28,8 +28,7 @@ provider:
         - "dynamodb:UpdateTable"
         - "dynamodb:Query"
         - "dynamodb:Scan"
-      Resource:
-        Ref: TodosDynamoDBTable
+      Resource: { "Fn::Join" : ["", ["arn:aws:dynamodb:::", { "Ref" : "TodosDynamoDBTable" } , "/*"] ] }
 
   environment:
     dynamodbTable: ${self:service}-${self:provider.stage}
@@ -66,26 +65,21 @@ functions:
 
 resources:
   Resources:
-  TodosDynamoDBTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: ${self:provider.environment.dynamodbTable}
-      ProvisionedThroughput:
-        ReadCapacityUnits: "1"
-        WriteCapacityUnits: "1"
-      AttributeDefinitions:
-        -
-          AttributeName: "id"
-          AttributeType: "S"
-      KeySchema:
-        -
-          AttributeName: "id"
-          KeyType: "HASH"
-  Outputs:
-    TodosDynamoDBTableARN:
-      Description: "TodosDynamoDBTable ARN"
-      Value:
-        Fn::GetAtt TodosDynamoDBTable
+    TodosDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.dynamodbTable}
+        ProvisionedThroughput:
+          ReadCapacityUnits: "1"
+          WriteCapacityUnits: "1"
+        AttributeDefinitions:
+          -
+            AttributeName: "id"
+            AttributeType: "S"
+        KeySchema:
+          -
+            AttributeName: "id"
+            KeyType: "HASH"
 
 package:
   include:
