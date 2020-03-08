@@ -15,6 +15,7 @@ provider:
       Action:
         - "s3:PutObject"
         - "s3:DeleteObject"
+        - "s3:DeleteBucket"
       Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } , "/*"] ] }
 
     - Effect: "Allow"
@@ -40,6 +41,13 @@ functions:
       - http:
           path: todos
           method: post
+          cors: true
+  update:
+    handler: update.update
+    events:
+      - http:
+          path: todos/{id}
+          method: put
           cors: true
   get:
     handler: get.get
@@ -76,11 +84,16 @@ resources:
           -
             AttributeName: "id"
             AttributeType: "S"
+          -
+            AttributeName: "todo"
+            AttributeType: "S"
         KeySchema:
           -
             AttributeName: "id"
             KeyType: "HASH"
-
+          -
+            AttributeName: "todo"
+            KeyType: "RANGE"
 package:
   include:
     - todos/create.py
