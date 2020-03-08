@@ -32,7 +32,7 @@ provider:
       Resource: { "Fn::Join" : ["", ["arn:aws:dynamodb:",{ "Ref" : "AWS::Region" },':', { "Ref" : "AWS::AccountId" }, ':table/', { "Ref" : "TodosDynamoDBTable" } ] ] }
 
   environment:
-    dynamodbTable: ${self:service}-${self:provider.stage}
+    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
 
 functions:
   create:
@@ -76,7 +76,7 @@ resources:
     TodosDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.dynamodbTable}
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
         ProvisionedThroughput:
           ReadCapacityUnits: "1"
           WriteCapacityUnits: "1"

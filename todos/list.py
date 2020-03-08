@@ -1,15 +1,20 @@
 import json
+import boto3
+import os
 
+dynamodb_table = os.environ['DYNAMODB_TABLE']
 
 def list(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
+    print('Inside the list function')
+    dynamodb = boto3.resource('dynamodb')
+
+    table = dynamodb.Table(dynamodb_table)
+    print(event)
+    result = table.scan()
 
     response = {
         "statusCode": 200,
-        "body": json.dumps(body)
+        "body": json.dumps(result)
     }
 
     return response
