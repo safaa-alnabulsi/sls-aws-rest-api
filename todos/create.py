@@ -1,14 +1,30 @@
 import json
 import boto3
+import os
+
+dynamodb_table = os.environ['dynamodbTable']
 
 
 def create(event, context):
-    dynamodb = boto3.resource('dynamodb')
-    print(event)
+    print('Inside the create function')
+
+    client = boto3.client('dynamodb')
+
+    item = json.loads(event['body'])
+    id = item['id']
+    content = item['todo']
+
+    response = client.put_item(
+        TableName=dynamodb_table,
+        Item={
+            "id": {"S": id},
+            "todo": {"S": content},
+        }
+    )
 
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
+        "message": "PutItem succeeded!",
+        "input": json.dumps(response)
     }
 
     response = {
