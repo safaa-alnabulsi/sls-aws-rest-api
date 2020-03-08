@@ -2,7 +2,7 @@ import json
 import boto3
 import os
 
-dynamodb_table = os.environ['dynamodbTable']
+dynamodb_table = os.environ['DYNAMODB_TABLE']
 
 
 def create(event, context):
@@ -14,7 +14,7 @@ def create(event, context):
     id = item['id']
     content = item['todo']
 
-    response = client.put_item(
+    result = client.put_item(
         TableName=dynamodb_table,
         Item={
             "id": {"S": id},
@@ -22,14 +22,9 @@ def create(event, context):
         }
     )
 
-    body = {
-        "message": "PutItem succeeded!",
-        "input": json.dumps(response)
-    }
-
     response = {
         "statusCode": 200,
-        "body": json.dumps(body)
+        "body": json.dumps(result)
     }
 
     return response
