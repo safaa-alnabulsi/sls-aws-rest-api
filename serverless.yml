@@ -87,5 +87,6 @@ package:
     - todos/update.py
     - todos/delete.py
     - todos/get.py
+    - todos/list.py
   exclude:
     - ./**
