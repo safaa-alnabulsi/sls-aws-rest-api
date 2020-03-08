@@ -6,10 +6,10 @@ dynamodb_table = os.environ['DYNAMODB_TABLE']
 
 def list(event, context):
     print('Inside the list function')
-    dynamodb = boto3.resource('dynamodb')
 
+    dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(dynamodb_table)
-    print(event)
+
     result = table.scan()
 
     response = {
