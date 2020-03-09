@@ -17,8 +17,7 @@ def delete(event, context):
     result = table.query(KeyConditionExpression=Key('id').eq(id))
     items = result['Items']
 
-    # delete the first element with the given hash
-    result = table.delete_item(Key=items[0])
+    result = [table.delete_item(Key=item) for item in items]
 
     response = {
         "statusCode": 200,
