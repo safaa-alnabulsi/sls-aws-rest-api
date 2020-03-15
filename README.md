@@ -1,5 +1,7 @@
 # AWS Serverless REST API
 
+A a proof of concept REST API using Python. It does CRUD operations on Dynamodb table.
+
 ## Pre-requisites:
 
 - Nodejs
