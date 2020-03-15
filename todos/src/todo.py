@@ -1,6 +1,6 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
-
+from todos.src.exceptions import NotFoundException
 
 class Todo(object):
     def __init__(self, id='', todo=''):
@@ -43,6 +43,3 @@ class TodoCRUD(object):
         items = result['Items']
         result = [self.table.delete_item(Key=item) for item in items]
         return result
-
-class NotFoundException(Exception):
-    pass
