@@ -77,29 +77,22 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        KeySchema:
+          - AttributeName: "id"
+            KeyType: "HASH"
+          - AttributeName: "todo"
+            KeyType: "RANGE"
+        AttributeDefinitions:
+          - AttributeName: "id"
+            AttributeType: "S"
+          - AttributeName: "todo"
+            AttributeType: "S"
         ProvisionedThroughput:
           ReadCapacityUnits: "1"
           WriteCapacityUnits: "1"
-        AttributeDefinitions:
-          -
-            AttributeName: "id"
-            AttributeType: "S"
-          -
-            AttributeName: "todo"
-            AttributeType: "S"
-        KeySchema:
-          -
-            AttributeName: "id"
-            KeyType: "HASH"
-          -
-            AttributeName: "todo"
-            KeyType: "RANGE"
+
 package:
   include:
-    - todos/create.py
-    - todos/update.py
-    - todos/delete.py
-    - todos/get.py
-    - todos/list.py
+    - todos/**
   exclude:
     - ./**

@@ -1,17 +1,11 @@
 import json
-import boto3
 import os
+from todos.src.todo import TodoCRUD
 
 dynamodb_table = os.environ['DYNAMODB_TABLE']
 
 def list(event, context):
-    print('Inside the list function')
-
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table(dynamodb_table)
-
-    result = table.scan()
-
+    result = TodoCRUD(dynamodb_table).list()
     response = {
         "statusCode": 200,
         "body": json.dumps(result)

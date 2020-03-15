@@ -33,7 +33,7 @@ To tail logs of a function
 To deploy all serverless functions and resources to AWS
 
     sls deploy -v --email <Your-email>
-    sls deploy -v --stage <Your-Stage-Name> --region <AWS-Region> --email <Your-email>
+    sls deploy -v --stage <Your-Stage-Name> --region <AWS-Region>
     
 To deploy only the changed function code to AWS
 
