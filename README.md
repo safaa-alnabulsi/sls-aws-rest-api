@@ -44,4 +44,6 @@ To remove all serverless functions and resources deployed to AWS
     sls remove 
     sls remove --stage<Your-Stage-Name> --region <AWS-Region>
 
-## References: 
+## References:
+- [Boto3 Dynamodb Client](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html#table)
+- [Serverless & API Gateway](https://serverless.com/framework/docs/providers/aws/events/apigateway/)
